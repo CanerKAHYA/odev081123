@@ -1,0 +1,221 @@
+
+SASS NEDİR VE NASIL KULLANILIR?
+
+SASS Nedir?
+SASS, Syntactically Awesome Style Sheets(Sözdizimsel Müthiş Stil Sayfaları) ifadesinin kısaltılmış halidir. En çok kullanılan CSS ön-işlemcilerinden biridir.
+
+En Popüler CSS ön-işlemcileri şunlardır;
+
+SASS
+LESS
+Stylus
+PostCSS
+SASS ve CSS Arasındaki Fark Nedir?
+
+SASS , CSS yazmayı daha dinamik bir hale getirmek için ortaya çıkmıştır. Kısaca CSS ‘e bir programlama dili havası katmaktadır. CSS’ de bulunmayan pek çok özellik barındırır.(Değişken tanımlama, İç içe yapılar kullanma, Fonksiyon tanımlama,...)
+
+Peki SASS Kullanmak İçin Ne Yapmayalım?
+
+Birden fazla kullanma yöntemi vardır, 
+
+Bunlardan biri bilgisayarınıza indirip kurabiliceğiniz dönüştürücülerdir.
+
+Dönüştürücüler kısaca yazmış olduğumuz .scss uzantılı dosyaları tarayıcıların anlayabileceği .css formatına dönüştürür.
+
+En Popüler SASS-CSS dönüştürücüleri şunlardır;
+
+Koala
+Scout-App
+SimpLess
+Sassmeister
+TheSassWay
+Compass
+Prepros
+
+Bir diğer yöntem ise Komut Satırı yardımı ile dönüştürmedir.
+
+Node.js kullanıyorsanız, Sass'ı npm kullanarak da kurabilirsiniz. (Yöntem-1)
+
+SASS’ın yerleşik olduğu dillerden biri Node.js'dir. Bu yüzden ilk önce Node.js'i kurmamız gerekiyor, böylece SASS daha sonra Node.js üzerinden çalışabiliyor.
+
+Node.js kurmak için https://nodejs.org/en/download/ adresinden sisteminize uygun versiyonu indirip kurmanız gerekiyor.
+
+npm install -g sass
+Ruby kullanıyorsanız, Sass'ı gem kullanarak da kurabilirsiniz.(Yöntem-2)
+
+SASS’ın yerleşik olduğu dillerden biri Ruby’dir. Bu yüzden ilk önce Ruby’yi kurmamız gerekiyor, böylece SASS daha sonra Ruby üzerinden çalışabiliyor.
+
+Sonrasında Komut Satırını açıyoruz ve aşağıdaki komutu yazıyoruz.
+
+gem install sass
+Peki bu gem ne anlama geliyor?
+
+Gem, Ruby’de çalışacak bir yazılım veya uygulamanın parçasıdır. Kısaca bir eklenti diyebiliriz.
+
+Kodu yazdıktan sonra ilgili dosyaların yüklenmesi 1-2 dakika alabilir.
+
+Mac OS X veya Linux işletim sistemi için Sass'ı brew kullanarak da kurabilirsiniz.(Yöntem-3)
+
+Mac OS X veya Linux için Homebrew paket yöneticisini kullanıyorsanız, Dart Sass'ı çalıştırarak kurabilirsiniz.
+
+brew install sass/sass/sass
+Artık SASS'ı çalıştırabiliriz. SASS klasörü içinde .scss uzantılı bir dosya oluşturup içini kodladıktan sonra kaydedip aşağıdaki komutu çalıştırıyoruz.
+
+sass –watch scss:css
+Yazmış olduğumuz komut sürekli olarak sass dizini tarayıp bir değişiklik olduğunda, değişiklik olan .scss uzantılı dosyayı .css formatına dönüştürür.
+
+SASS Nasıl Yazılır ?, En çok Hangi Özellikleri kullanılır?
+ Değişkenler (Variables)
+CSS’de değişken kullanımına olanak sağlar, en kullanışlı özelliklerden biridir. Aşağıda göstermiş olduğum şekilde başına $ işareti koymamız değişken olduğunu ifade etmek içindir.
+
+SASS:
+
+$general-font: "Helvetica, sans-herif";
+$my-color: #a5a5a5;
+p {
+font-family: $general-font;
+color: $my-color;
+}
+CSS Çıktısı:
+
+p {
+font-family: "Helvetica, sans-herif;
+color: #a5a5a5;
+}
+Bu şekilde ,tanımlamış olduğumuz değişkenleri istediğimiz yerde kullanabiliriz. Değişken tanımladığımız yerde yaptığımız küçük bir değişiklik ile yazılan tüm koda etki edilebilir.
+
+İç İçe Yapılar Oluşturma(Nesting)
+CSS yazmayı hızlandıran, kolaylaştıran ve kod kalabalığını azaltan önemli bir özelliktir.
+
+SASS:
+
+div {
+.aciklama{
+  color:blue;
+  &:hover{
+   color:red
+  }
+ }
+ .resim{
+  width: 100%;
+ }   
+}
+CSS Çıktısı:
+
+div .aciklama{
+ color:blue;
+}
+div .aciklama:hover{
+ color:red;
+}
+div .resim{
+ width: 100%;
+}  
+& sembolü :hover :after :before gibi seçiciler için SASS yazımına özel kullanılan bir yapıdır. İçinde bulunduğu parent'a etki eder.
+
+İçeri Aktarım(Import)
+Kod kalabalığından ve karışıklıktan kurtulmak için çok kullanışlı bir özelliktir. 2 adet .scss uzantılı dosyamız olsun. Birinde genel tanımladığımız değişkenlerimiz bulunsun, bir diğerinde ise still verdiğimiz SASS kodlarımız bulunsun. Bu özellik ile değişkenleri tanımladığımız _variable.scss dosyasını, still verdiğimiz style.scss dosyası ile birleştirmiş oluyoruz.
+
+SASS
+
+_variable.scss
+
+$h1-font-size: 50px;
+$h1-line-height: $font-weight-extralight;
+$h1-color: #444444;
+$h1-line-height: 60px;
+style.scss
+
+@import "variables";
+h1{
+font-size: $h1-font-size;
+line-height: $h1-line-height;
+font-weight: $h1-font-weight;
+color: $h1-color;
+}
+CSS Çıktısı
+
+$h1-font-size: 50px; 
+$h1-line-height: $font-weight-extralight; 
+$h1-color: #444444; 
+$h1-line-height: 60px;
+h1{
+font-size: $h1-font-size;
+line-height: $h1-line-height;
+font-weight: $h1-font-weight;
+color: $h1-color;
+}
+Katmanlar(Mixins)
+Katman yapısı, sürekli aynı parametreleri kullanarak yazdığımız CSS kodlarını tek bir sefer tanımlayarak, her yerde tek bir komut çağırarak kullanmamıza olanak sağlar. Fonksiyon çağırmaya çok benzer fakat burada işlem yaptırmıyoruz.
+
+SASS
+
+@mixin overlay() {
+left: 0;
+ top: 0;
+ background: black;
+ opacity: 0.2;
+}
+.my-background{
+ @include overlay();
+}
+CSS Çıktısı
+
+.my-background{
+left: 0;
+ top: 0;
+ background: black;
+ opacity: 0.2;
+}
+Kalıtım(Inheritance)
+Katılım özelliği ortak CSS kodlarını barındıran elementleri bir araya toplamak için kullanılanılır.
+
+SASS
+
+.mesaj{
+border: 1px solid gray;
+ padding: 15px;
+ color: black;
+}
+.basarili{
+ @extend .mesaj;
+ background: green;
+}
+.hata{
+ @extend .mesaj;
+ background: red;
+}
+.uyari{
+ @extend .mesaj;
+ background yellow;
+}
+CSS Çıktısı
+
+.mesaj, .basarili, .hata, .uyari{ 
+ border: 1px solid gray;
+ padding: 15px;
+ color: black;
+}
+.basarili{
+ background: green;
+}
+.hata{
+ background: red;
+}
+.uyari{
+ background yellow;
+}
+Operatörler(Operators)
+Matematik işlemlerini CSS’de yapmamıza olanak sağlayan çok kullanışlı bir özelliktir. SASS tarafında matematiksel işlemler yaptırabilirsiniz ve CSS tarafına bu işlem sonuçlandırılmış olarak gönderilir.
+SASS
+
+.box{ 
+ width: 1/3 * 100%;
+ height: 30px * 2.5;
+}
+CSS Çıktısı
+
+.box{
+width: 33.333333333%
+height: 75px;
+}
